@@ -1,74 +1,119 @@
-# Smart Door Lock System Using 8051
 
-An electronic door lock system based on the AT89C51 microcontroller, featuring password-based access control, a 4x4 matrix keypad, and a 16x2 LCD.
+# DC Motor Speed Control using STM32
 
 ## Project Overview
 
-This project implements a password-based electronic door lock system using the 8051 microcontroller. Users can set a password, enter it through the keypad, and verify their credentials to control door access.
+This project implements a DC motor speed control system using an STM32 microcontroller.
 
-The LCD provides instructions and system status during operation.
+The system uses PWM to control motor speed, an encoder to measure actual motor speed, and a PID controller to regulate the motor based on feedback.
+
+The motor speed and system status are displayed on an LCD, while UART communication is used to monitor system information through a virtual terminal.
 
 ## Features
 
-- Password setup and confirmation
-- Password-based access verification
-- 4x4 matrix keypad input
-- LCD 16x2 status display
-- Unlock indication using LED
-- Wrong password warning
-- Temporary lockout after 3 failed attempts (10 seconds)
+- PWM-based DC motor speed control.
+- Encoder feedback for motor speed measurement.
+- PID control for speed regulation.
+- LCD display for real-time speed monitoring.
+- UART communication for debugging and monitoring.
+- Real-time motor speed adjustment.
 
 ## Hardware Components
 
-| Component | Description |
+- STM32F103C8T6 Microcontroller
+- DC Motor with Encoder
+- L298 Motor Driver
+- LCD 16x2
+- Virtual Terminal
+- Power Supply
+
+## STM32 Peripherals
+
+| Peripheral | Function |
 |---|---|
-| Microcontroller | AT89C51 |
-| Display | LCD 16x2 |
-| Input | 4x4 Matrix Keypad |
-| Indicator | LED |
+| TIM1 - PWM | Generates PWM signals to control motor speed |
+| TIM3 - Encoder Mode | Reads encoder signals to measure motor speed |
+| USART1 | Transmits monitoring data to the virtual terminal |
+| GPIO | Controls peripheral interfaces |
+| GPIO LCD Interface | Sends commands and data to the LCD |
 
-## Software & Development Tools
+## System Operation
 
-- SDCC (Small Device C Compiler)
-- Proteus 8 Professional
-- Embedded C
-- 8051 Microcontroller Architecture
+1. The STM32 initializes the system peripherals.
+2. PWM signals are generated to control the motor.
+3. The encoder provides feedback about motor rotation.
+4. The STM32 calculates the actual motor speed.
+5. The PID controller processes the speed error and adjusts the PWM output.
+6. The LCD displays the motor speed.
+7. UART transmits system information for monitoring.
+
+## Simulation Results
+
+The system was designed and tested using Proteus simulation.
+
+The main functions include:
+
+- **Motor Startup:** Initializes the motor control system.
+- **PWM Speed Control:** Adjusts the PWM duty cycle to control motor speed.
+- **Encoder Feedback:** Uses encoder signals to calculate actual motor speed.
+- **PID Speed Regulation:** Adjusts PWM output based on the difference between target and actual speed.
+- **LCD Monitoring:** Displays motor speed and system information.
+- **UART Monitoring:** Transmits system data through the virtual terminal.
 
 ## Project Structure
 
 ```text
-Smart-Door-Lock-System-8051/
-├── Source_Code/
+DC-Motor-Speed-Control-STM32/
+│
+├── Core/
+│   ├── Inc/
+│   └── Src/
+│
+├── Drivers/
+│
 ├── Proteus/
-├── Images/
-├── Documentation/
-└── README.md
+│
+├── README.md
+└── ...
 ```
 
-## System Flow
+## How to Run
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[Set Password]
-    B --> C[Confirm Password]
-    C --> D[Enter Password]
-    D --> E{Password Correct?}
-    E -->|Yes| F[Unlock Door]
-    F --> G[Lock Door]
-    E -->|No| H[Display Error]
-    H --> I{3 Failed Attempts?}
-    I -->|No| D
-    I -->|Yes| J[Lockout for 10 Seconds]
-    J --> D
-```
+### 1. Open the STM32 Project
 
-## Screenshots
+- Open STM32CubeIDE.
+- Import the project into the workspace.
+- Build the project to compile the source code.
 
-Project circuit diagrams and simulation results are available in the `Images/` directory.
+### 2. Run the Proteus Simulation
+
+- Open the Proteus project file.
+- Configure the STM32 microcontroller with the compiled HEX file if required.
+- Start the simulation.
+- Observe motor operation, LCD display, and virtual terminal.
+
+### 3. Monitor System Performance
+
+- Observe motor speed changes.
+- Monitor encoder feedback.
+- Check PID speed regulation.
+- View UART data through the virtual terminal.
+
+## Technologies Used
+
+- C Programming
+- STM32 Microcontroller
+- STM32CubeIDE
+- Proteus Design Suite
+- PWM
+- Encoder Interface
+- PID Control
+- UART Communication
 
 ## Author
 
-**Ngo Huy**
+**Ngo Phuc Huy**
 
-Microelectronics Engineering Student  
-Ho Chi Minh City University of Foreign Languages and Information Technology (HUFLIT)
+Fourth-year Microelectronics Engineering Student
+
+GitHub: [huycorn1003](https://github.com/huycorn1003)
